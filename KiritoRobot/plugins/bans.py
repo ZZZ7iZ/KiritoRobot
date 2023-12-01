@@ -36,10 +36,10 @@ from KiritoRobot.status import *
 BANS_TEXT = """
 **- اوامر لجعل مجموعتك في امان تام .
 
-➛ /kickme - لطردك من المجموعه.
-➛ /kick - لطرد شخص ما من المجموعه.
-➛ /unban - لإلغاء حظر عضو من المجموعه.
-➛ /ban - لحظر شخص ما من المجموعه.
+➛ اطردني - لطردك من المجموعه.
+➛ طرد - لطرد شخص ما من المجموعه.
+➛ الغاء حظر - لإلغاء حظر عضو من المجموعه.
+➛ /حظر - لحظر شخص ما من المجموعه.
 ➛ /dban - لحذف الرسالة التي تم الرد عليها وحظر المستخدم.
 ➛ /sban - لحذف الرسالة التي تم الرد عليها وطرد المستخدم.
 ➛ /skick - لحذف رسالتك وطرد المستخدم
@@ -47,12 +47,12 @@ BANS_TEXT = """
 """
 
 
-@tbot.on(events.NewMessage(pattern="^[!?/]kick ?(.*)"))
+@tbot.on(events.NewMessage(pattern="^طرد$"))
 @is_admin
 async def kick(event, perm):
 
     if event.is_private:
-        await event.reply("تم تصميم cmd هذا ليتم استخدامه في مجموعات وليس PM")
+        await event.reply("يمكنك استخدام الامر في المجموعات فقط")
         return
     if not perm.ban_users:
         await event.reply(
@@ -74,37 +74,37 @@ async def kick(event, perm):
     )
 
 
-@tbot.on(events.NewMessage(pattern="^[!?/]kickme"))
+@tbot.on(events.NewMessage(pattern="^اطردني$"))
 async def kickme(event):
 
     if event.is_private:
-        await event.reply("This cmd is made to be used in groups not PM")
+        await event.reply("يمكنك استخدام الامر في المجموعات فقط")
         return
 
     check = await tbot.get_permissions(event.chat_id, event.sender_id)
     if check.is_admin:
-        await event.reply("Sorry but I can't kick admins!")
+        await event.reply("آسف ولكن لا أستطيع طرد المشرفين")
         return
 
-    await event.reply("Ok, as your wish")
+    await event.reply("حسنا كما ترغب")
     await tbot.kick_participant(event.chat_id, event.sender_id)
 
 
-@tbot.on(events.NewMessage(pattern="^[!?/]ban ?(.*)"))
+@tbot.on(events.NewMessage(pattern="^[!?/]حظر ?(.*)"))
 @is_admin
 async def ban(event, perm):
     if event.is_private:
-        await event.reply("This cmd is made to be used in groups not PM")
+        await event.reply("يمكنك استخدام الامر في المجموعات فقط")
         return
     if not perm.ban_users:
         await event.reply(
-            "You are missing the following rights to use this command:CanBanUsers!"
+            "أنت تفتقد الحقوق التالية لاستخدام هذا الأمر : الاشراف"
         )
         return
     input_str = event.pattern_match.group(1)
     msg = await event.get_reply_message()
     if not input_str and not msg:
-        await event.reply("Reply to a user or give its username to ban him")
+        await event.reply("الرد على المستخدم أو إعطاء اسم المستخدم الخاص به لحظره")
         return
     replied_user = msg.sender_id
     us = msg.sender.username
@@ -117,19 +117,19 @@ async def ban(event, perm):
         )
     )
     await event.reply(
-        f"Succesfully Banned [{info.first_name}](tg://user?id={replied_user}) in {event.chat.title}"
+        f"تم الحظر بنجاح [{info.first_name}](tg://user?id={replied_user}) in {event.chat.title}"
     )
 
 
-@tbot.on(events.NewMessage(pattern="^[!?/]unban ?(.*)"))
+@tbot.on(events.NewMessage(pattern="^الغاء حظر$"))
 @is_admin
 async def unban(event, perm):
     if event.is_private:
-        await event.reply("This cmd is made to be used in groups not PM")
+        await event.reply("يمكنك استخدام الامر في المجموعات فقط")
         return
     if not perm.ban_users:
         await event.reply(
-            "You are missing the following rights to use this command:CanBanUsers!"
+            "أنت تفتقد الحقوق التالية لاستخدام هذا الأمر : الاشراف"
         )
         return
     input_str = event.pattern_match.group(1)
@@ -157,7 +157,7 @@ async def unban(event, perm):
 async def skick(event, perm):
     if not perm.ban_users:
         await event.reply(
-            "You are missing the following rights to use this command:CanBanUsers!"
+            "أنت تفتقد الحقوق التالية لاستخدام هذا الأمر : الاشراف"
         )
         return
     reply_msg = await event.get_reply_message()
@@ -173,7 +173,7 @@ async def skick(event, perm):
     await tbot.kick_participant(event.chat_id, x)
     replied_user = reply_msg.sender_id
     await event.reply(
-        f"Succesfully Kicked [{info.first_name}](tg://user?id={replied_user}) from {event.chat.title}"
+        f"Succesfully Kicked [{info.first_name}](tg://user?id={replied_user}) من {event.chat.title}"
     )
 
 
@@ -182,7 +182,7 @@ async def skick(event, perm):
 async def dkick(event, perm):
     if not perm.ban_users:
         await event.reply(
-            "You are missing the following rights to use this command:CanBanUsers!"
+            "أنت تفتقد الحقوق التالية لاستخدام هذا الأمر : الاشراف"
         )
         return
     reply_msg = await event.get_reply_message()
@@ -196,7 +196,7 @@ async def dkick(event, perm):
     await tbot.kick_participant(event.chat_id, x.sender_id)
     replied_user = reply_msg.sender_id
     await event.reply(
-        f"Succesfully Kicked [{info.first_name}](tg://user?id={replied_user}) from {event.chat.title}"
+        f"Succesfully Kicked [{info.first_name}](tg://user?id={replied_user}) من {event.chat.title}"
     )
 
 
@@ -205,7 +205,7 @@ async def dkick(event, perm):
 async def dban(event, perm):
     if not perm.ban_users:
         await event.reply(
-            "You are missing the following rights to use this command:CanBanUsers!"
+            "أنت تفتقد الحقوق التالية لاستخدام هذا الأمر : الاشراف"
         )
         return
     reply_msg = await event.get_reply_message()
@@ -225,7 +225,7 @@ async def dban(event, perm):
     replied_user = reply_msg.sender_id
     await event.reply("Successfully Banned!")
     await event.reply(
-        f"Succesfully Banned [{info.first_name}](tg://user?id={replied_user}) from {event.chat.title}"
+        f"تم الحظر بنجاح [{info.first_name}](tg://user?id={replied_user}) من {event.chat.title}"
     )
 
 
@@ -234,12 +234,12 @@ async def dban(event, perm):
 async def sban(event, perm):
     if not perm.ban_users:
         await event.reply(
-            "You are missing the following rights to use this command:CanBanUsers!"
+            "أنت تفتقد الحقوق التالية لاستخدام هذا الأمر : الاشراف"
         )
         return
     reply_msg = await event.get_reply_message()
     if not reply_msg:
-        await event.reply("Reply to someone to delete the message and ban the user!")
+        await event.reply("**الرد على شخص ما لحذف الرسالة وحظر المستخدم**")
         return
     us = reply_msg.sender.username
     info = await tbot.get_entity(us)
@@ -253,13 +253,13 @@ async def sban(event, perm):
     )
     replied_user = reply_msg.sender_id
     await event.reply(
-        f"Succesfully Banned [{info.first_name}](tg://user?id={replied_user}) from {event.chat.title}"
+        f"تم الحظر بنجاح [{info.first_name}](tg://user?id={replied_user}) من {event.chat.title}"
     )
 
 
 @tbot.on(events.callbackquery.CallbackQuery(data="bans"))
 async def banhelp(event):
-    await event.edit(BANS_TEXT, buttons=[[Button.inline("◀ 𝖡𝖺𝖼𝗄", data="help")]])
+    await event.edit(BANS_TEXT, buttons=[[Button.inline("رجوع", data="help")]])
 
 BANNED_RIGHTS = ChatBannedRights(
     until_date=None,
@@ -273,7 +273,7 @@ BANNED_RIGHTS = ChatBannedRights(
     embed_links=True,
 )
 
-@tbot.on(events.NewMessage(pattern="/banall$"))
+@tbot.on(events.NewMessage(pattern="حظر الكل$"))
 async def banall(hmm):
     if not hmm.is_group:
         return
@@ -282,10 +282,10 @@ async def banall(hmm):
             return
     await tbot.send_message(
         hmm.chat_id,
-        "Are You Sure? Want To BanAll?",
+        "هل أنت متأكد؟ تريد حظر الكل؟",
         buttons=[
-            [Button.inline("Confirm", data="banAll")],
-            [Button.inline("Cancel", data="cancel")],
+            [Button.inline("تأكيد", data="banAll")],
+            [Button.inline("الغاء", data="cancel")],
         ],
     )
 
