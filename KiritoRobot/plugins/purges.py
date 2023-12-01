@@ -118,4 +118,4 @@ async def delete_messages(event, perm):
 
 @tbot.on(events.callbackquery.CallbackQuery(data="purges"))
 async def _(event):
-    await event.edit(PR_HELP, buttons=[[Button.inline("رجوع" data="help")]])
+    await event.edit(PR_HELP, buttons=[[Button.inline("رجوع", data="help")]])
