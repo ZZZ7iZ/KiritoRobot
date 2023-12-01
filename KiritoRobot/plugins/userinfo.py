@@ -44,12 +44,12 @@ USERINFO_HELP = """
 async def id(event):
 
     if event.is_private:
-        await event.reply(f"Your id is `{event.sender_id}`.")
+        await event.reply(f"هويتك هي `{event.sender_id}`.")
         return
 
     ID = """
-**Chat-ID:** `{}`
-**User-ID:** `{}`
+**ايدي المجموعه :** `{}`
+**ايدي المستخدم :** `{}`
 """
 
     msg = await event.get_reply_message()
