@@ -40,46 +40,46 @@ LOCKS_HELP = """
 """
 
 
-@tbot.on(events.NewMessage(pattern="^[!?/]lock ?(.*)"))
+@tbot.on(events.NewMessage(pattern="^قفل$"))
 @is_admin
 async def lock(event, perm):
     if not perm.change_info:
         await event.reply(
-            "You are missing the following rights to use this command:CanChangeInfo"
+            "أنت تفتقد الحقوق التالية لاستخدام هذا الأمر: الاشراف"
         )
         return
     input_str = event.pattern_match.group(1)
     if not input_str:
         await event.reply("You haven't specified anything to lock.")
         return
-    if "text" in input_str:
+    if "الرسائل" in input_str:
         await tbot.edit_permissions(event.chat_id, send_messages=False)
-        await event.reply("Locked `text`.")
-    elif "media" in input_str:
+        await event.reply("مقفل `نص`.")
+    elif "وسائط" in input_str:
         await tbot.edit_permissions(event.chat_id, send_media=False)
-        await event.reply("Locked `media`.")
-    elif "sticker" in input_str:
+        await event.reply("مقفل `وسائط`.")
+    elif "ملصقات" in input_str:
         await tbot.edit_permissions(event.chat_id, send_stickers=False)
-        await event.reply("Locked `sticker`.")
-    elif "gifs" in input_str:
+        await event.reply("مقفل `ملصقات`.")
+    elif "صور متحركه" in input_str:
         await tbot.edit_permissions(event.chat_id, send_gifs=False)
-        await event.reply("Locked `gifs`.")
+        await event.reply("مقفل `صور متحركة`.")
     elif "forward" in input_str:
         await tbot.edit_permissions(event.chat_id, forwards=False)
-        await event.reply("Locked `forward`.")
-    elif "games" in input_str:
+        await event.reply("مقفل `إلى الأمام`.")
+    elif "العاب" in input_str:
         await tbot.edit_permissions(event.chat_id, send_games=False)
-        await event.reply("Locked `games`.")
+        await event.reply("مقفل `ألعاب`.")
     elif "inline" in input_str:
         await tbot.edit_permissions(event.chat_id, send_inline=False)
-        await event.reply("Locked `inline`.")
-    elif "polls" in input_str:
+        await event.reply("مقفل `inline`.")
+    elif "استفتاء" in input_str:
         await tbot.edit_permissions(event.chat_id, send_polls=False)
-        await event.reply("Locked `polls`.")
-    elif "preview" in input_str:
+        await event.reply("مقفل `استفتاء`.")
+    elif "معاينة" in input_str:
         await tbot.edit_permissions(event.chat_id, embed_link_previews=False)
-        await event.reply("Locked `preview`.")
-    elif "all" in input_str:
+        await event.reply("مقفل `معاينة`.")
+    elif "الكل" in input_str:
         await tbot.edit_permissions(
             event.chat_id,
             send_messages=False,
@@ -91,48 +91,48 @@ async def lock(event, perm):
             send_polls=False,
             embed_link_previews=False,
         )
-        await event.reply("Locked `all`.")
+        await event.reply("مقفل `all`.")
 
 
-@tbot.on(events.NewMessage(pattern="^[!?/]unlock ?(.*)"))
+@tbot.on(events.NewMessage(pattern="^فتح$"))
 @is_admin
 async def unlock(event, perm):
     if not perm.change_info:
         await event.reply(
-            "You are missing the following rights to use this command:CanChangeInfo"
+            "أنت تفتقد الحقوق التالية لاستخدام هذا الأمر: الاشراف"
         )
         return
     input_str = event.pattern_match.group(1)
     if not input_str:
-        await event.reply("You haven't specified anything to unlock.")
+        await event.reply("لم تقم بتحديد أي شيء لفتحه.")
         return
     if "text" in input_str:
         await tbot.edit_permissions(event.chat_id, send_messages=True)
-        await event.reply("Unlocked `text`.")
+        await event.reply("مفتوحة `الرسائل`.")
     elif "media" in input_str:
         await tbot.edit_permissions(event.chat_id, send_media=True)
-        await event.reply("Unlocked `media`.")
+        await event.reply("مفتوحة `وسائط`.")
     elif "sticker" in input_str:
         await tbot.edit_permissions(event.chat_id, send_stickers=True)
-        await event.reply("Unlocked `sticker`.")
+        await event.reply("مفتوحة `ملصقات`.")
     elif "gifs" in input_str:
         await tbot.edit_permissions(event.chat_id, send_gifs=True)
-        await event.reply("Unlocked `gifs`.")
+        await event.reply("مفتوحة `صور متحركة`.")
     elif "forward" in input_str:
         await tbot.edit_permissions(event.chat_id, forwards=True)
-        await event.reply("Unlocked `forward`.")
+        await event.reply("مفتوحة `forward`.")
     elif "games" in input_str:
         await tbot.edit_permissions(event.chat_id, send_games=True)
-        await event.reply("Unlocked `games`.")
+        await event.reply("مفتوحة `العاب`.")
     elif "inline" in input_str:
         await tbot.edit_permissions(event.chat_id, send_inline=True)
-        await event.reply("Unlocked `inline`.")
+        await event.reply("مفتوحة `inline`.")
     elif "polls" in input_str:
         await tbot.edit_permissions(event.chat_id, send_polls=True)
-        await event.reply("Unlocked `polls`.")
+        await event.reply("مفتوحة `استفتاء`.")
     elif "preview" in input_str:
         await tbot.edit_permissions(event.chat_id, embed_link_previews=True)
-        await event.reply("Unlocked `preview`.")
+        await event.reply("مفتوحة `preview`.")
     elif "all" in input_str:
         await tbot.edit_permissions(
             event.chat_id,
@@ -145,23 +145,23 @@ async def unlock(event, perm):
             send_polls=True,
             embed_link_previews=True,
         )
-        await event.reply("Unlocked `all`.")
+        await event.reply("مفتوحة `all`.")
 
 
-@tbot.on(events.NewMessage(pattern="^[!?/]locktypes"))
+@tbot.on(events.NewMessage(pattern="^اوامر الفتح ولقفل$"))
 async def locktypes(event):
     TEXT = """
-**Locks:**
+**قفل :**
 
-➛ Text
-➛ Media
-➛ Sticker
-➛ Gifs
-➛ Videos
-➛ Contacts
-➛ Games
-➛ Inline 
-➛ all
+➛ الرسائل
+➛ الوسائط 
+➛ ملصقات
+➛ صور متحركة 
+➛ مقاطع فيديو 
+➛ جهات الاتصال 
+➛ ألعاب 
+➛ عبر الإنترنت 
+➛ الكل
 """
     await event.reply(TEXT)
 
@@ -169,4 +169,4 @@ async def locktypes(event):
 @tbot.on(events.callbackquery.CallbackQuery(data="locks"))
 async def _(event):
 
-    await event.edit(LOCKS_HELP, buttons=[[Button.inline("◀ 𝖡𝖺𝖼𝗄", data="help")]])
+    await event.edit(LOCKS_HELP, buttons=[[Button.inline("رجوع", data="help")]])
