@@ -39,26 +39,26 @@ from KiritoRobot.status import *
 async def spam(event, perm):
     if not perm.ban_users:
         await event.reply(
-            "You are missing the following rights to use this command:CanBanUsers!"
+            "أنت تفتقد الحقوق التالية لاستخدام هذا الأمر: الاشراف"
         )
         return
     msg = await event.get_reply_message()
     if not msg:
-        await event.reply("That's not a user!")
+        await event.reply("هذا ليس مستخدم")
         return
     ree = (await event.get_reply_message()).sender_id
     check = await tbot.get_permissions(event.chat_id, ree)
 
     if check.is_admin:
-        await event.reply("He can be a spammer, but he is also an admin!")
+        await event.reply("يمكن أن يكون مرسلي رسائل غير مرغوب فيها، ولكنه أيضًا مسؤول")
         return
     elif check.is_creator:
         await event.delete()
-        await event.reply("He is chat creator")
+        await event.reply("هذا مالك المجموعه")
         return
     elif msg.sender.bot:
         await event.delete()
-        await event.reply("Its a bot!")
+        await event.reply("لا يمكن استخدامه على البوت")
         return
 
     re = (await event.get_reply_message()).sender_id
@@ -69,5 +69,5 @@ async def spam(event, perm):
     )
     await tbot.send_message(
         event.chat_id,
-        f"[{user.first_name}](tg://user?id={re}) it looks like you are spamming the chat!\nAnd so has been muted for 1 hour",
+        f"[{user.first_name}](tg://user?id={re}) يبدو أنك ترسل بريدًا عشوائيًا إلى المجموعه\nوقد تم كتم الصوت لمدة ساعة واحدة",
     )
