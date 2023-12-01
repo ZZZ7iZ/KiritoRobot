@@ -47,13 +47,13 @@ PR_HELP = """
 async def purge_messages(event, perm):
     if not perm.delete_messages:
         await event.reply(
-            "You are missing the following rights to use this command:CanDelMsgs!"
+            "أنت تفتقد الحقوق التالية لاستخدام هذا الأمر : الاشراف "
         )
         return
     start = time.perf_counter()
     reply_msg = await event.get_reply_message()
     if not reply_msg:
-        await event.reply("Reply to a message to select where to start purging from.")
+        await event.reply("قم بالرد على رسالة لتحديد المكان الذي ستبدأ منه عملية الحذف.")
         return
     messages = []
     message_id = reply_msg.id
@@ -77,13 +77,13 @@ async def purge_messages(event, perm):
 async def spurge(event, perm):
     if not perm.delete_messages:
         await event.reply(
-            "You are missing the following rights to use this command:CanDelMsgs!"
+            "أنت تفتقد الحقوق التالية لاستخدام هذا الأمر: الاشراف"
         )
         return
     time.perf_counter()
     reply_msg = await event.get_reply_message()
     if not reply_msg:
-        await event.reply("Reply to a message to select where to start purging from.")
+        await event.reply("قم بالرد على رسالة لتحديد المكان الذي ستبدأ منه عملية الحذف.")
         return
     messages = []
     message_id = reply_msg.id
@@ -104,12 +104,12 @@ async def spurge(event, perm):
 async def delete_messages(event, perm):
     if not perm.delete_messages:
         await event.reply(
-            "You are missing the following rights to use this command:CanDelMsgs!"
+            "أنت تفتقد الحقوق التالية لاستخدام هذا الأمر: الاشراف"
         )
         return
     msg = await event.get_reply_message()
     if not msg:
-        await event.reply("Reply to a msg to delete it.")
+        await event.reply("الرد على رسالة لحذفها.")
         return
 
     await msg.delete()
@@ -118,4 +118,4 @@ async def delete_messages(event, perm):
 
 @tbot.on(events.callbackquery.CallbackQuery(data="purges"))
 async def _(event):
-    await event.edit(PR_HELP, buttons=[[Button.inline("◀ 𝖡𝖺𝖼𝗄", data="help")]])
+    await event.edit(PR_HELP, buttons=[[Button.inline("ررجوع, data="help")]])
