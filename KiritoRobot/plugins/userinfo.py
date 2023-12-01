@@ -65,7 +65,7 @@ async def info(event):
 
     sed = await tbot(P(user_id=event.sender_id, offset=42, max_id=0, limit=80))
     hn = await tbot(GetFullUserRequest(event.sender_id))
-    text = "**╒═══「 نتائج التقييم : 」**\n\n"
+    text += "**╒═══「 نتائج التقييم : 」**\n\n"
     text += "**➛ الاسم الأول :** {}\n"
     text += "**➛ اسم العائلة :** {}\n"
     text += "**➛ الايدي :** `{}`\n"
@@ -94,7 +94,7 @@ async def info(event):
     hu = await tbot(GetFullUserRequest(id=input_str))
     sedd = await tbot(P(user_id=input_str, offset=42, max_id=0, limit=80))
 
-      text = "**╒═══「 نتائج التقييم : 」**\n\n"
+    text += "**╒═══「 نتائج التقييم : 」**\n\n"
     text += "**➛ الاسم الأول :** {}\n"
     text += "**➛ اسم العائلة :** {}\n"
     text += "**➛ الايدي :** `{}`\n"
