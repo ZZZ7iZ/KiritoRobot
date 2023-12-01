@@ -32,10 +32,10 @@ from KiritoRobot import tbot
 from KiritoRobot.Configs import Config
 
 btn = [
-    [Button.inline("‹ اوامر الادمن ›", data="‹ اوامر الادمن ² ›"), Button.inline("Anime", data="anime")],
-    [Button.inline("‹ اوامر الحظر ›", data="‹ اوامر الحظر ² ›"), Button.inline("Pins", data="pins")],
-    [Button.inline("‹ اوامر التنظيف ›", data="‹ اوامر التنظيف ² ›"), Button.inline("‹ اوامر القفل ›", data="locks")],
-    [Button.inline("‹ معلومات العضو ›", data="‹ معلومات العضو ² ›"), Button.inline("‹ اوامر المجموعة ›", data="zombies")],
+    [Button.inline("‹ اوامر الادمن ›", data="Anime"), Button.inline("", data="anime")],
+    [Button.inline("‹ اوامر الحظر ›", data="bans"), Button.inline("‹ اوامر التثبيت ›", data="pins")],
+    [Button.inline("‹ اوامر التنظيف ›", data="purges"), Button.inline("‹ اوامر القفل ›", data="locks")],
+    [Button.inline("‹ معلومات العضو ›", data="userinfo"), Button.inline("‹ اوامر المجموعة ›", data="zombies")],
     
     [Button.inline("رجوع", data="back")]
 
